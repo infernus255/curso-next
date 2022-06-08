@@ -1,4 +1,10 @@
-export const DarkLayout = ({ children }) => {
+import { FC } from "react";
+
+interface Props {
+  children?: React.ReactNode | undefined;
+}
+
+export const DarkLayout: FC<Props> = ({ children }) => {
   return (
     <div
       style={{

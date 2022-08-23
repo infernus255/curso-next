@@ -3,9 +3,9 @@ import type { NextPage } from "next";
 import { Layout } from "../components/layouts";
 import styles from "../styles/Home.module.css";
 import { GetStaticProps } from "next";
-import { pokeApi } from "./api";
+import { pokeApi } from "../api";
 import { PokemonListResponse, SmallPokemon } from "../interfaces";
-import { PokemonCard } from "../components/pokemon/PokemonCard";
+import { PokemonCard } from "../components/pokemon";
 
 interface Props {
   pokemons: SmallPokemon[];
@@ -31,7 +31,6 @@ const Home: NextPage<Props> = ({ pokemons }) => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { data } = await pokeApi.get<PokemonListResponse>("/pokemon?limit=151");
-  console.log(data);
   const pokemons: SmallPokemon[] = data.results.map((poke, i) => ({
     ...poke,
     id: i + 1,
@@ -39,7 +38,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       i + 1
     }.svg`,
   }));
-  //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg
   return {
     props: {
       pokemons,
